@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { FiSun, FiMoon, FiMenu } from "react-icons/fi";
 
@@ -16,24 +16,29 @@ export default function Navbar() {
   }, [dark]);
 
   const linkClass = ({ isActive }) =>
-    isActive
-      ? "font-semibold"
-      : "opacity-80 hover:opacity-100";
+    isActive ? "font-semibold" : "opacity-80 hover:opacity-100";
 
   return (
     <nav
-      className="w-full border-b"
+      className="w-full sticky top-0 z-50 border-b"
       style={{
         background: "var(--card)",
         color: "var(--text)",
         borderColor: "var(--muted)",
+        backdropFilter: "blur(10px)", // 🔥 premium feel
       }}
     >
       {/* Top Bar */}
       <div className="flex justify-between items-center px-4 md:px-6 py-4">
 
         {/* Logo */}
-        <h1 className="font-semibold text-lg">Finance Dashboard</h1>
+        <Link to="/" className="flex items-center gap-2">
+          <img
+            src="/zorvynfintech.png"
+            alt="Logo"
+            className="h-8 sm:h-10 md:h-12 w-auto object-contain"
+          />
+        </Link>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
@@ -94,11 +99,11 @@ export default function Navbar() {
             Transactions
           </NavLink>
 
-          {/* Dark Mode Button (Mobile) */}
+          {/* Dark Mode Button */}
           <button
             onClick={() => {
               setDark(!dark);
-              setMenuOpen(false); // ✅ FIXED
+              setMenuOpen(false);
             }}
             className="flex items-center gap-2 px-3 py-2 rounded-lg text-left transition"
             style={{
