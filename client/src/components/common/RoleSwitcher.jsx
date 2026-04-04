@@ -17,7 +17,7 @@ export default function RoleSwitcher() {
       <select
         value={role}
         onChange={(e) => setRole(e.target.value)}
-        className="px-3 py-1.5 rounded-lg text-sm border focus:outline-none"
+        className="px-3 py-1.5 rounded-lg text-sm cursor-pointer border focus:outline-none"
         style={{
           background: "var(--card)",
           color: "var(--text)",

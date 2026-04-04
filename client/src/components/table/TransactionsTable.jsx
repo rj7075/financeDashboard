@@ -16,12 +16,12 @@ export default function TransactionsTable() {
 
   const perPage = 5;
 
-  // ✅ FILTER
+  // FILTER
   const filtered = transactions
     .filter((t) => (filter === "all" ? true : t.type === filter))
     .filter((t) => t.category.toLowerCase().includes(search.toLowerCase()));
 
-  // ✅ SORT
+  //SORT
   const sorted = [...filtered].sort((a, b) => {
     if (sort === "latest") return new Date(b.date) - new Date(a.date);
     if (sort === "oldest") return new Date(a.date) - new Date(b.date);
@@ -29,7 +29,7 @@ export default function TransactionsTable() {
     if (sort === "low") return a.amount - b.amount;
   });
 
-  // ✅ PAGINATION
+  //PAGINATION
   const paginated = sorted.slice((page - 1) * perPage, page * perPage);
 
   return (
@@ -50,7 +50,7 @@ export default function TransactionsTable() {
 
         <select
           onChange={(e) => setSort(e.target.value)}
-          className="w-full sm:w-auto px-3 py-2 text-sm rounded-lg border focus:outline-none focus:ring-2"
+          className="w-full sm:w-auto px-3 py-2 text-sm cursor-pointer rounded-lg border focus:outline-none focus:ring-2"
           style={{
             background: "var(--card)",
             color: "var(--text)",
@@ -65,7 +65,7 @@ export default function TransactionsTable() {
 
         <select
           onChange={(e) => setFilter(e.target.value)}
-          className="w-full sm:w-auto px-3 py-2 text-sm rounded-lg border focus:outline-none focus:ring-2"
+          className="w-full sm:w-auto px-3 py-2 text-sm rounded-lg cursor-pointer border focus:outline-none focus:ring-2"
           style={{
             background: "var(--card)",
             color: "var(--text)",

@@ -56,7 +56,7 @@ export default function Navbar() {
           {/* Dark Mode Button */}
           <button
             onClick={() => setDark(!dark)}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition"
+            className="flex items-center gap-2 cursor-pointer px-3 py-1.5 rounded-lg text-sm transition"
             style={{
               border: "1px solid var(--muted)",
               background: "var(--card)",
