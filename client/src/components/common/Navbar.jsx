@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { FiSun, FiMoon, FiMenu } from "react-icons/fi";
 
 export default function Navbar() {
   const [dark, setDark] = useState(false);
@@ -14,47 +15,51 @@ export default function Navbar() {
     }
   }, [dark]);
 
+  const linkClass = ({ isActive }) =>
+    isActive
+      ? "font-semibold"
+      : "opacity-80 hover:opacity-100";
+
   return (
     <nav
       className="w-full border-b"
-      style={{ background: "var(--card)", color: "var(--text)" }}
+      style={{
+        background: "var(--card)",
+        color: "var(--text)",
+        borderColor: "var(--muted)",
+      }}
     >
       {/* Top Bar */}
       <div className="flex justify-between items-center px-4 md:px-6 py-4">
+
         {/* Logo */}
         <h1 className="font-semibold text-lg">Finance Dashboard</h1>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-6">
+
           <div className="flex gap-4 text-sm">
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive
-                  ? "font-semibold text-blue-500"
-                  : "hover:underline"
-              }
-            >
+            <NavLink to="/" className={linkClass}>
               Dashboard
             </NavLink>
 
-            <NavLink
-              to="/transactions"
-              className={({ isActive }) =>
-                isActive
-                  ? "font-semibold text-blue-500"
-                  : "hover:underline"
-              }
-            >
+            <NavLink to="/transactions" className={linkClass}>
               Transactions
             </NavLink>
           </div>
 
+          {/* Dark Mode Button */}
           <button
             onClick={() => setDark(!dark)}
-            className="text-sm px-3 py-1 rounded-lg border transition hover:bg-gray-100 dark:hover:bg-gray-800"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition"
+            style={{
+              border: "1px solid var(--muted)",
+              background: "var(--card)",
+              color: "var(--text)",
+            }}
           >
-            {dark ? "Light Mode" : "Dark Mode"}
+            {dark ? <FiSun /> : <FiMoon />}
+            {dark ? "Light" : "Dark"}
           </button>
         </div>
 
@@ -63,19 +68,20 @@ export default function Navbar() {
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden text-xl"
         >
-          ☰
+          <FiMenu />
         </button>
       </div>
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden flex flex-col gap-4 px-4 pb-4 text-sm border-t">
+        <div
+          className="md:hidden flex flex-col gap-4 px-4 pb-4 text-sm border-t"
+          style={{ borderColor: "var(--muted)" }}
+        >
           <NavLink
             to="/"
             onClick={() => setMenuOpen(false)}
-            className={({ isActive }) =>
-              isActive ? "font-semibold text-blue-500" : ""
-            }
+            className={linkClass}
           >
             Dashboard
           </NavLink>
@@ -83,17 +89,25 @@ export default function Navbar() {
           <NavLink
             to="/transactions"
             onClick={() => setMenuOpen(false)}
-            className={({ isActive }) =>
-              isActive ? "font-semibold text-blue-500" : ""
-            }
+            className={linkClass}
           >
             Transactions
           </NavLink>
 
+          {/* Dark Mode Button (Mobile) */}
           <button
-            onClick={() => setDark(!dark)}
-            className="text-sm px-3 py-2 rounded-lg border text-left"
+            onClick={() => {
+              setDark(!dark);
+              setMenuOpen(false); // ✅ FIXED
+            }}
+            className="flex items-center gap-2 px-3 py-2 rounded-lg text-left transition"
+            style={{
+              border: "1px solid var(--muted)",
+              background: "var(--card)",
+              color: "var(--text)",
+            }}
           >
+            {dark ? <FiSun /> : <FiMoon />}
             {dark ? "Light Mode" : "Dark Mode"}
           </button>
         </div>
